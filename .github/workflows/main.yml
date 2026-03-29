@@ -1,0 +1,36 @@
+name: Deploy Bot
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Create JSON files
+      run: |
+        python -c "import json; [open(f, 'w').write(json.dumps({})) for f in ['keys.json', 'users.json', 'pending_payments.json', 'orders.json', 'owner_keys.json']]"
+        mkdir -p screenshots
+    
+    - name: Run bot
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        OWNER_ID: ${{ secrets.OWNER_ID }}
+      run: |
+        python bot.py &
+        sleep 5
+        echo "Bot is running!"
