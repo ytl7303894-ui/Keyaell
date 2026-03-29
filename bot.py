@@ -19,10 +19,20 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Bot Token from environment variable
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-# Get OWNER_ID, if not set use default
-OWNER_ID = int(os.getenv("OWNER_ID", "8477195695"))
+# ============================================
+# DIRECT CONFIGURATION - Add your values here
+# ============================================
+BOT_TOKEN = "7269851273:AAEVGwwR_HJyLFdSvBbY5OnUEJD8ETdTPxU"
+OWNER_ID = 8477195695
+# ============================================
+
+# Verify configuration
+if not BOT_TOKEN:
+    print("❌ ERROR: BOT_TOKEN is not set!")
+    exit(1)
+
+print(f"✅ Bot Token loaded")
+print(f"✅ Owner ID: {OWNER_ID}")
 
 # Data storage files
 KEYS_FILE = "keys.json"           # Owner ki stored keys
