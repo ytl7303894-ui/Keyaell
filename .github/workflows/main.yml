@@ -5,32 +5,31 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Python
-      uses: actions/setup-python@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
-    
+        python-version: '3.11'
+        
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt
-    
-    - name: Create JSON files
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt || echo "No requirements.txt found"
+        
+    - name: Create .env file
       run: |
-        python -c "import json; [open(f, 'w').write(json.dumps({})) for f in ['keys.json', 'users.json', 'pending_payments.json', 'orders.json', 'owner_keys.json']]"
-        mkdir -p screenshots
-    
+        echo "${{ secrets.ENV_FILE }}" > .env
+        
     - name: Run bot
-      env:
-        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-        OWNER_ID: ${{ secrets.OWNER_ID }}
       run: |
-        python bot.py &
-        sleep 5
-        echo "Bot is running!"
+        python bot.py
