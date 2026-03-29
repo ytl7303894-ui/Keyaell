@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 # Bot Token from environment variable
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-OWNER_ID = int(os.getenv("OWNER_ID", "0"))
+OWNER_ID = int(os.getenv("OWNER_ID", "8477195695"))
 
 # Data storage files
 KEYS_FILE = "keys.json"           # Owner ki stored keys
