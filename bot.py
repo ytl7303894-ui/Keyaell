@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 # ============================================
 # DIRECT CONFIGURATION - Add your values here
 # ============================================
-BOT_TOKEN = "7269851273:AAEVGwwR_HJyLFdSvBbY5OnUEJD8ETdTPxU"
+BOT_TOKEN = "8249817052:AAG4w0Xk3CF23PKjDhwyR3ga_q1N1By5_nc"
 OWNER_ID = 8477195695
 # ============================================
 
